@@ -6,7 +6,7 @@
 
 <div class="space-y-2">
   {#each commands as command (command.id)}
-    <div class="group relative overflow-hidden flex items-center justify-between p-3 rounded-lg border hover:shadow-md transition-all duration-300" style="background-color: #3a4028; border-color: #D2FF02;">
+    <div class="group relative overflow-hidden flex items-center justify-between p-3 rounded-lg border hover:shadow-md transition-all duration-300" style="background-color: #ffffff; border-color: #D2FF02;">
       <!-- Animated background -->
       <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(to right, rgba(210, 255, 2, 0.1), transparent);"></div>
       
@@ -18,7 +18,7 @@
           <span class="text-sm font-bold" style="color: #D2FF02;">{command.command}</span>
         {:else}
           <div class="w-2.5 h-2.5 bg-gray-400 rounded-full"></div>
-          <span class="text-sm font-medium" style="color: #F4F4ED;">{command.command}</span>
+          <span class="text-sm font-medium" style="color: #000000;">{command.command}</span>
         {/if}
       </div>
       

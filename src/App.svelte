@@ -81,17 +81,17 @@
 {#if currentPage === 'home'}
   <Home onGetStarted={handleGetStarted} />
 {:else}
-  <div class="site-wrapper w-screen min-h-screen" style="background-color: #282C20;">
+  <div class="site-wrapper w-screen min-h-screen" style="background-color: #ffffff;">
     <TopBar {permissionStatus} {autoSafeCommands} />
 
-    <main class="w-full px-4 sm:px-6 lg:px-8 py-12">
+    <main class="w-full px-4 sm:px-6 lg:px-8 py-12" style="background-color: #ffffff;">
       <!-- Loading State -->
       {#if isLoading && parameters.length === 0}
         <div class="flex items-center justify-center h-96">
           <div class="text-center">
-            <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-700 mb-4" style="border-top-color: #F4F4ED;"></div>
-            <p class="text-lg font-semibold" style="color: #F4F4ED;">Loading threat analysis...</p>
-            <p class="text-sm mt-2" style="color: #F4F4ED;">Analyzing network packets</p>
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-gray-300 mb-4" style="border-top-color: #000000;"></div>
+            <p class="text-lg font-semibold" style="color: #000000;">Loading threat analysis...</p>
+            <p class="text-sm mt-2" style="color: #333333;">Analyzing network packets</p>
           </div>
         </div>
       {/if}
@@ -119,7 +119,7 @@
               <button
                 on:click={handleBackToHome}
                 class="p-2 rounded-lg transition-colors duration-200 hover:opacity-80"
-                style="background-color: #3a3a3a; color: #F4F4ED;"
+                style="background-color: #f0f0f0; color: #000000;"
                 title="Back to home"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -127,29 +127,29 @@
                 </svg>
               </button>
               <div>
-                <h2 class="text-4xl font-bold" style="color: #F4F4ED;">Security Dashboard</h2>
-                <p class="text-sm mt-2" style="color: #B8B8B0;">Real-time threat detection and network analysis</p>
+                <h2 class="text-4xl font-bold" style="color: #000000;">Security Dashboard</h2>
+                <p class="text-sm mt-2" style="color: #555555;">Real-time threat detection and network analysis</p>
               </div>
             </div>
-          <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #3a3a3a; border-color: #F4F4ED;">
-            <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #F4F4ED;"></div>
-            <span class="text-sm font-semibold" style="color: #F4F4ED;">Live</span>
-            <span class="text-xs ml-2" style="color: #F4F4ED;">{new Date().toLocaleTimeString()}</span>
+          <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #f0f0f0; border-color: #000000;">
+            <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #000000;"></div>
+            <span class="text-sm font-semibold" style="color: #000000;">Live</span>
+            <span class="text-xs ml-2" style="color: #555555;">{new Date().toLocaleTimeString()}</span>
           </div>
         </div>
-        <div class="h-1 w-16 rounded-full" style="background-color: #F4F4ED;"></div>
+        <div class="h-1 w-16 rounded-full" style="background-color: #000000;"></div>
       </div>
 
       <!-- Parameters Section -->
-      <section class="mb-16">
+      <section class="mb-16" style="background-color: #ffffff;">
         <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #F4F4ED;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #F4F4ED;">
+          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
             Network Metrics
           </h3>
-          <p class="text-sm mt-2" style="color: #B8B8B0;">Current security and network parameters</p>
+          <p class="text-sm mt-2" style="color: #555555;">Current security and network parameters</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
           {#each parameters as param (param.name)}
@@ -159,15 +159,15 @@
       </section>
 
       <!-- Predictions Section -->
-      <section class="mb-16">
+      <section class="mb-16" style="background-color: #ffffff;">
         <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #F4F4ED;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #F4F4ED;">
+          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             AI Detection Models
           </h3>
-          <p class="text-sm mt-2" style="color: #B8B8B0;">Machine learning threat detection confidence levels</p>
+          <p class="text-sm mt-2" style="color: #555555;">Machine learning threat detection confidence levels</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {#each predictions as pred (pred.modelName)}
@@ -177,25 +177,25 @@
       </section>
 
       <!-- Logs Section -->
-      <section>
+      <section style="background-color: #ffffff;">
         <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #F4F4ED;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #F4F4ED;">
+          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             Security Alerts & Logs
           </h3>
-          <p class="text-sm mt-2" style="color: #B8B8B0;">Real-time security events and threat warnings</p>
+          <p class="text-sm mt-2" style="color: #555555;">Real-time security events and threat warnings</p>
         </div>
-        <div class="rounded-xl border shadow-md overflow-hidden" style="background-color: #3a3a3a; border-color: #F4F4ED;">
+        <div class="rounded-xl border shadow-md overflow-hidden" style="background-color: #ffffff; border-color: #000000;">
           <div class="max-h-[600px] overflow-y-auto">
             {#if logs.length === 0}
               <div class="p-12 text-center">
-                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #F4F4ED;">
+                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p class="font-medium" style="color: #F4F4ED;">No security alerts detected</p>
-                <p class="text-sm mt-1" style="color: #B8B8B0;">System operating normally</p>
+                <p class="font-medium" style="color: #000000;">No security alerts detected</p>
+                <p class="text-sm mt-1" style="color: #555555;">System operating normally</p>
               </div>
             {:else}
               <div class="divide-y divide-gray-100">

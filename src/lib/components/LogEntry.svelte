@@ -25,7 +25,7 @@
   class:border-amber-400={isWarning}
   class:border-red-500={isAlert}
   class:border-lime-400={!isWarning && !isAlert}
-  style="background-color: #3a4028; color: #F4F4ED;"
+  style="background-color: #ffffff; color: #f4f4ed;"
 >
   <!-- Animated left indicator -->
   <div class="absolute left-0 top-0 h-full w-1 transition-all duration-300"
@@ -64,10 +64,10 @@
 
   <!-- Content -->
   <div class="flex-1 min-w-0 py-1">
-    <p class="text-sm font-semibold transition-colors" style="color: #F4F4ED;">
+    <p class="text-sm font-semibold transition-colors" style="color: #000000;">
       {log.message}
     </p>
-    <p class="text-xs mt-1.5 flex items-center gap-2" style="color: #F4F4ED;">
+    <p class="text-xs mt-1.5 flex items-center gap-2" style="color: #555555;">
       <span class="inline-block w-1.5 h-1.5 rounded-full" 
         class:bg-amber-400={isWarning}
         class:bg-red-500={isAlert}
