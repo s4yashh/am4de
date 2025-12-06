@@ -42,7 +42,7 @@
     error = '';
 
     try {
-      const response = await fetch('http://localhost:3000/verify_otp', {
+      const response = await fetch('https://amide-backend.vercel.app/verify_otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@
     error = '';
 
     try {
-      const response = await fetch('http://localhost:3000/signup', {
+      const response = await fetch('https://amide-backend.vercel.app/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
