@@ -9,31 +9,31 @@
   onMount(() => {
     let n = 0;
 
-    // progress bar animation
+    // Much smoother progress interval (FPS-friendly)
     const interval = setInterval(() => {
-      n++;
+      n += 1;
       progress = n;
 
       if (n >= 100) {
         clearInterval(interval);
 
-        // delay then expand vertically
-        setTimeout(() => (expand = true), 300);
+        // Trigger vertical reveal smoothly
+        setTimeout(() => (expand = true), 200);
 
-        // remove preloader after animation
-        setTimeout(() => (hide = true), 1100);
+        // Remove preloader AFTER expansion completes
+        setTimeout(() => (hide = true), 1200);
       }
-    }, 12);
+    }, 16); // 16ms = 60fps
   });
 </script>
 
 {#if !hide}
 <div class="preloader">
 
-  <!-- Vertical expanding panel -->
-  <div class="expander" style="transform: scaleY({expand ? 1 : 0});"></div>
+  <!-- Vertical expanding screen -->
+  <div class="expander" class:expanded={expand}></div>
 
-  <!-- Center logo -->
+  <!-- Logo -->
   <img src={logoImage} class="logo" alt="AMIDE" />
 
   <!-- Horizontal progress bar -->
@@ -59,42 +59,49 @@
     overflow: hidden;
   }
 
-  /* ✔ Fullscreen vertical expansion */
+  /* FULLSCREEN EXPAND PANEL */
   .expander {
     position: absolute;
     inset: 0;
     background: #000;
     transform-origin: center;
     transform: scaleY(0);
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1); /* super smooth */
     z-index: 20;
+  }
+
+  .expander.expanded {
+    transform: scaleY(1);
   }
 
   .logo {
     width: 120px;
     height: auto;
     z-index: 30;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    will-change: transform;
   }
 
   .line-container {
     width: 280px;
     height: 3px;
     background: #e5e5e5;
-    overflow: hidden;
     border-radius: 2px;
+    overflow: hidden;
     z-index: 30;
+    will-change: transform;
   }
 
-  /* ✔ The line that fills left → right */
+  /* Super smooth width animation */
   .line-fill {
     height: 100%;
     background: black;
-    transition: width 0.05s linear;
+    transition: width 0.12s linear; /* smooth motion */
+    will-change: width;
   }
 
   .brand {
-    margin-top: 25px;
+    margin-top: 22px;
     font-family: "Mona Sans", sans-serif;
     letter-spacing: 2px;
     font-weight: bold;
