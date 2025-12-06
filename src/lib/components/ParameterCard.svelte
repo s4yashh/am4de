@@ -9,19 +9,19 @@
   };
 </script>
 
-<div class="group relative overflow-hidden rounded-xl border shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 p-6" style="background-color: #ffffff; border-color: #D2FF02;">
+<div class="group relative overflow-hidden rounded-xl border shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 p-6" style="background-color: #FAFAF8; border-color: #000000;">
   <!-- Accent bar -->
-  <div class="absolute top-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500" style="background-color: #D2FF02;"></div>
+  <div class="absolute top-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500" style="background-color: #000000;"></div>
   
   <div class="relative z-10">
     <div class="text-xs font-bold uppercase tracking-widest mb-3 opacity-75" style="color: #000000;">
       {parameter.name}
     </div>
-    <div class="text-4xl font-bold" style="color: #D2FF02;">
+    <div class="text-4xl font-bold" style="color: #000000;">
       {parameter.value}
     </div>
-    <div class="mt-4 h-1 rounded-full overflow-hidden" style="background-color: #e0e0e0;">
-      <div class="h-full w-3/4 rounded-full" style="background-color: #D2FF02;"></div>
+    <div class="mt-4 h-1 rounded-full overflow-hidden" style="background-color: #000000;">
+      <div class="h-full w-3/4 rounded-full" style="background-color: #000000;"></div>
     </div>
   </div>
   

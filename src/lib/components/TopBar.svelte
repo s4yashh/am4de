@@ -1,4 +1,5 @@
 <script lang="ts">
+  import logo from '../../assets/logo.png';
   import AutoSafeCommands from './AutoSafeCommands.svelte';
   import type { AutoSafeCommand } from '$lib/api';
 
@@ -6,26 +7,19 @@
   export let autoSafeCommands: AutoSafeCommand[] = [];
 </script>
 
-<header class="sticky top-0 z-40 border-b shadow-sm" style="background-color: #ffffff; border-color: #e0e0e0;">
-  <div class="w-full px-4 sm:px-6 lg:px-8 py-4">
+<header class="sticky top-0 z-40 border-b shadow-sm" style="background-color: #FAFAF8; border-color: #000000;">
+  <div class="w-full px-4 sm:px-6 lg:px-8 pb-4" style="padding-top: -8px;">
     <div class="flex items-center justify-between">
       <!-- Logo & Title -->
       <div class="flex items-center gap-4">
-        <div class="hidden sm:flex items-center gap-3">
-          <div class="relative">
-            <div class="relative px-3 py-2 rounded-lg" style="background-color: #ffffff;">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" style="color: #D2FF02;">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-          </div>
-          <h1 class="text-2xl font-bold" style="color: #D2FF02;">amide</h1>
+        <div class="flex items-center gap-1">
+          <img src={logo} alt="AMIDE Logo" class="w-24 h-24" />
         </div>
         
         <!-- Permission Status -->
-        <div class="flex items-center gap-2 px-4 py-2.5 rounded-lg border shadow-sm hover:shadow-md transition-all" style="background-color: #ffffff; border-color: #D2FF02;">
+        <div class="flex items-center gap-2 px-4 py-2.5 rounded-lg border shadow-sm hover:shadow-md transition-all" style="background-color: #FAFAF8; border-color: #000000;">
           <div class="relative">
-            <div class="relative w-3 h-3 rounded-full animate-pulse" style="background-color: #D2FF02;"></div>
+            <div class="relative w-3 h-3 rounded-full animate-pulse" style="background-color: #000000;"></div>
           </div>
           <span class="text-sm font-semibold" style="color: #000000;">{permissionStatus}</span>
         </div>
@@ -33,7 +27,7 @@
 
       <!-- AutoSafe Commands Panel -->
       <div class="hidden lg:block flex-shrink-0">
-        <div class="rounded-xl p-4 shadow-md hover:shadow-lg transition-all max-w-xs border" style="background-color: #ffffff; border-color: #D2FF02;">
+        <div class="rounded-xl p-4 shadow-md hover:shadow-lg transition-all max-w-xs border" style="background-color: #FAFAF8; border-color: #000000;">
           <h3 class="text-sm font-bold mb-3 uppercase tracking-wide" style="color: #000000;">Active Security Commands</h3>
           <AutoSafeCommands commands={autoSafeCommands} />
         </div>
@@ -41,8 +35,8 @@
     </div>
 
     <!-- Mobile permission status -->
-    <div class="sm:hidden mt-4 flex items-center gap-2 px-3 py-2 rounded-lg border" style="background-color: #ffffff; border-color: #D2FF02;">
-      <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #D2FF02;"></div>
+    <div class="sm:hidden mt-4 flex items-center gap-2 px-3 py-2 rounded-lg border" style="background-color: #FAFAF8; border-color: #000000;">
+      <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #000000;"></div>
       <span class="text-xs font-semibold" style="color: #000000;">{permissionStatus}</span>
     </div>
   </div>

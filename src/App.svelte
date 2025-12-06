@@ -81,10 +81,10 @@
 {#if currentPage === 'home'}
   <Home onGetStarted={handleGetStarted} />
 {:else}
-  <div class="site-wrapper w-screen min-h-screen" style="background-color: #ffffff;">
+  <div class="site-wrapper w-screen min-h-screen" style="background-color: #FAFAF8;">
     <TopBar {permissionStatus} {autoSafeCommands} />
 
-    <main class="w-full px-4 sm:px-6 lg:px-8 py-12" style="background-color: #ffffff;">
+    <main class="w-full px-4 sm:px-6 lg:px-8 py-12" style="background-color: #FAFAF8;">
       <!-- Loading State -->
       {#if isLoading && parameters.length === 0}
         <div class="flex items-center justify-center h-96">
@@ -119,7 +119,7 @@
               <button
                 on:click={handleBackToHome}
                 class="p-2 rounded-lg transition-colors duration-200 hover:opacity-80"
-                style="background-color: #f0f0f0; color: #000000;"
+                style="background-color: #FAFAF8; color: #000000; border: 1px solid #000000;"
                 title="Back to home"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +131,7 @@
                 <p class="text-sm mt-2" style="color: #555555;">Real-time threat detection and network analysis</p>
               </div>
             </div>
-          <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #f0f0f0; border-color: #000000;">
+          <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #FAFAF8; border-color: #000000;">
             <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #000000;"></div>
             <span class="text-sm font-semibold" style="color: #000000;">Live</span>
             <span class="text-xs ml-2" style="color: #555555;">{new Date().toLocaleTimeString()}</span>
@@ -141,7 +141,7 @@
       </div>
 
       <!-- Parameters Section -->
-      <section class="mb-16" style="background-color: #ffffff;">
+      <section class="mb-16" style="background-color: #FAFAF8;">
         <div class="mb-6">
           <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
@@ -159,7 +159,7 @@
       </section>
 
       <!-- Predictions Section -->
-      <section class="mb-16" style="background-color: #ffffff;">
+      <section class="mb-16" style="background-color: #FAFAF8;">
         <div class="mb-6">
           <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
@@ -177,7 +177,7 @@
       </section>
 
       <!-- Logs Section -->
-      <section style="background-color: #ffffff;">
+      <section style="background-color: #FAFAF8;">
         <div class="mb-6">
           <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
@@ -187,7 +187,7 @@
           </h3>
           <p class="text-sm mt-2" style="color: #555555;">Real-time security events and threat warnings</p>
         </div>
-        <div class="rounded-xl border shadow-md overflow-hidden" style="background-color: #ffffff; border-color: #000000;">
+        <div class="rounded-xl border shadow-md overflow-hidden" style="background-color: #FAFAF8; border-color: #000000;">
           <div class="max-h-[600px] overflow-y-auto">
             {#if logs.length === 0}
               <div class="p-12 text-center">

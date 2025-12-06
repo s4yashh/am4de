@@ -25,7 +25,7 @@
   class:border-amber-400={isWarning}
   class:border-red-500={isAlert}
   class:border-lime-400={!isWarning && !isAlert}
-  style="background-color: #ffffff; color: #f4f4ed;"
+  style="background-color: #FAFAF8; color: #000000;"
 >
   <!-- Animated left indicator -->
   <div class="absolute left-0 top-0 h-full w-1 transition-all duration-300"
