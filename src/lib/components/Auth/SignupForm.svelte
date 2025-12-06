@@ -2,6 +2,7 @@
   import { sha256 } from '../../crypto';
   
   export let onSignupComplete: (email: string, password: string) => void;
+  export let onBackToLogin: () => void;
 
   let email = '';
   let password = '';
@@ -73,38 +74,50 @@
   };
 </script>
 
-<div class="signup-container">
-  <div class="form-wrapper">
-    <h1 class="form-title">Create Account</h1>
-    <p class="form-subtitle">Join AMIDE to monitor encrypted threats</p>
+<div class="signup-container w-screen min-h-screen flex flex-col items-center justify-center" style="background-color: #0a0a0a;">
+  <div class="form-wrapper w-full max-w-md px-6 sm:px-8">
+    <button 
+      on:click={onBackToLogin}
+      class="mb-8 text-sm flex items-center gap-2 transition-all duration-200 hover:opacity-80"
+      style="color: #BABABA;"
+    >
+      ← Back to sign in
+    </button>
+
+    <h1 class="form-title text-4xl sm:text-5xl font-light mb-2" style="color: #FFFFFF;">Create Account</h1>
+    <p class="form-subtitle text-base sm:text-lg mb-10" style="color: #BABABA;">
+      Join AMIDE to monitor encrypted threats
+    </p>
 
     {#if success}
-      <div class="success-message">
-        <p>✓ OTP sent to {email}</p>
+      <div class="success-message mb-6 p-4 rounded-lg" style="background-color: #1a3a2a; border: 1px solid #2a5a4a;">
+        <p style="color: #4ade80;">✓ OTP sent to {email}</p>
       </div>
     {/if}
 
     {#if error}
-      <div class="error-message">
-        {error}
+      <div class="error-message mb-6 p-4 rounded-lg" style="background-color: #3a1a1a; border: 1px solid #5a2a2a;">
+        <p style="color: #ff6b6b;">{error}</p>
       </div>
     {/if}
 
-    <form on:submit|preventDefault={handleSignup}>
+    <form on:submit|preventDefault={handleSignup} class="space-y-6">
       <div class="form-group">
-        <label for="email">Email Address</label>
+        <label for="email" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Email address</label>
         <input
           id="email"
           type="email"
-          placeholder="you@example.com"
+          placeholder="you@company.com"
           bind:value={email}
           on:keypress={handleKeyPress}
           disabled={loading || success}
+          class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Password</label>
         <input
           id="password"
           type="password"
@@ -112,12 +125,14 @@
           bind:value={password}
           on:keypress={handleKeyPress}
           disabled={loading || success}
+          class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
-        <small>At least 6 characters</small>
+        <p class="text-xs mt-1" style="color: #BABABA;">At least 6 characters</p>
       </div>
 
       <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
+        <label for="confirmPassword" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Confirm Password</label>
         <input
           id="confirmPassword"
           type="password"
@@ -125,17 +140,30 @@
           bind:value={confirmPassword}
           on:keypress={handleKeyPress}
           disabled={loading || success}
+          class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
       </div>
 
-      <button type="submit" class="submit-btn" disabled={loading || success}>
-        {loading ? 'Sending OTP...' : success ? 'OTP Sent!' : 'Get Started'}
+      <button
+        type="submit"
+        disabled={loading || success}
+        class="w-full py-3 rounded-lg font-medium transition-all duration-300 transform hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        style="background-color: #F4F4ED; color: #0a0a0a;"
+      >
+        {loading ? 'Sending OTP...' : success ? 'OTP Sent!' : 'Create Account'}
       </button>
     </form>
 
-    <p class="form-footer">
-      Already have an account?
-      <a href="#login">Sign in</a>
+    <p class="text-center mt-6" style="color: #BABABA;">
+      Already have an account? 
+      <button
+        on:click={onBackToLogin}
+        class="font-medium transition-colors duration-200 hover:text-white"
+        style="color: #4a9eff; background: none; border: none; cursor: pointer; padding: 0;"
+      >
+        Sign in
+      </button>
     </p>
   </div>
 </div>

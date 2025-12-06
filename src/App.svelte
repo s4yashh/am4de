@@ -23,10 +23,20 @@
   let logs: Log[] = [];
   let permissionStatus: string = 'Waiting for Permission';
   let autoSafeCommands: AutoSafeCommand[] = [];
+  let selectedModel: string | null = null;
   
   let isLoading = true;
   let error: string | null = null;
   let currentPage: 'home' | 'dashboard' = 'home';
+
+  const handleModelClick = (modelName: string) => {
+    selectedModel = selectedModel === modelName ? null : modelName;
+  };
+
+  const getFilteredLogs = () => {
+    if (!selectedModel) return logs;
+    return logs.filter(log => log.message.toLowerCase().includes(selectedModel!.toLowerCase()));
+  };
 
   const loadData = async () => {
     try {
@@ -158,7 +168,7 @@
         </div>
       </section>
 
-      <!-- Predictions Section -->
+      <!-- Predictions Section with Expandable Logs -->
       <section class="mb-16" style="background-color: #FAFAF8;">
         <div class="mb-6">
           <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
@@ -169,42 +179,10 @@
           </h3>
           <p class="text-sm mt-2" style="color: #555555;">Machine learning threat detection confidence levels</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid gap-6" style="grid-template-columns: repeat(3, 1fr);">
           {#each predictions as pred (pred.modelName)}
-            <PredictionCard prediction={pred} />
+            <PredictionCard prediction={pred} isSelected={selectedModel === pred.modelName} onSelect={handleModelClick} logs={logs} />
           {/each}
-        </div>
-      </section>
-
-      <!-- Logs Section -->
-      <section style="background-color: #FAFAF8;">
-        <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            Security Alerts & Logs
-          </h3>
-          <p class="text-sm mt-2" style="color: #555555;">Real-time security events and threat warnings</p>
-        </div>
-        <div class="rounded-xl border shadow-md overflow-hidden" style="background-color: #FAFAF8; border-color: #000000;">
-          <div class="max-h-[600px] overflow-y-auto">
-            {#if logs.length === 0}
-              <div class="p-12 text-center">
-                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <p class="font-medium" style="color: #000000;">No security alerts detected</p>
-                <p class="text-sm mt-1" style="color: #555555;">System operating normally</p>
-              </div>
-            {:else}
-              <div class="divide-y divide-gray-100">
-                {#each logs as log (log.id)}
-                  <LogEntry {log} />
-                {/each}
-              </div>
-            {/if}
-          </div>
         </div>
       </section>
     {/if}

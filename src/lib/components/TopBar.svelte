@@ -1,6 +1,4 @@
 <script lang="ts">
-  import logo from '../../assets/logo.png';
-  import AutoSafeCommands from './AutoSafeCommands.svelte';
   import type { AutoSafeCommand } from '$lib/api';
 
   export let permissionStatus: string = 'Waiting for Permission';
@@ -13,7 +11,7 @@
       <!-- Logo & Title -->
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-1">
-          <img src={logo} alt="AMIDE Logo" class="w-24 h-24" />
+          <img src="/logo.png" alt="AMIDE Logo" class="w-16 h-16" />
         </div>
         
         <!-- Permission Status -->
@@ -22,14 +20,6 @@
             <div class="relative w-3 h-3 rounded-full animate-pulse" style="background-color: #000000;"></div>
           </div>
           <span class="text-sm font-semibold" style="color: #000000;">{permissionStatus}</span>
-        </div>
-      </div>
-
-      <!-- AutoSafe Commands Panel -->
-      <div class="hidden lg:block flex-shrink-0">
-        <div class="rounded-xl p-4 shadow-md hover:shadow-lg transition-all max-w-xs border" style="background-color: #FAFAF8; border-color: #000000;">
-          <h3 class="text-sm font-bold mb-3 uppercase tracking-wide" style="color: #000000;">Active Security Commands</h3>
-          <AutoSafeCommands commands={autoSafeCommands} />
         </div>
       </div>
     </div>

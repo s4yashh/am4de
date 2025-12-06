@@ -44,11 +44,15 @@
     authStep = 'home';
     signupEmail = '';
   };
+
+  const handleBackToLogin = () => {
+    authStep = 'login';
+  };
 </script>
 
 <div class="site-wrapper w-screen min-h-screen flex flex-col" style="background-color: #0a0a0a;">
   {#if authStep === 'signup'}
-    <SignupForm onSignupComplete={handleSignupComplete} />
+    <SignupForm onSignupComplete={handleSignupComplete} onBackToLogin={handleBackToLogin} />
   {:else if authStep === 'login'}
     <LoginForm onLoginComplete={handleLoginComplete} onBackToHome={handleBackToHome} />
   {:else if authStep === 'otp'}

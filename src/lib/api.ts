@@ -28,23 +28,21 @@ const mockParameters: Parameter[] = [
   { name: 'Packets Analyzed', value: '1.2M' },
   { name: 'Encryption Entropy', value: '7.8/10' },
   { name: 'Traffic Patterns', value: 'Normal' },
-  { name: 'Attack Confidence', value: '0.12%' },
-  { name: 'Network Load', value: '34.5%' }
+  { name: 'Attack Confidence', value: '0.12%' }
 ];
 
 const mockPredictions: Prediction[] = [
-  { modelName: 'DDoS Detection', confidence: 0.08 },
-  { modelName: 'Protocol Anomaly', confidence: 0.15 },
-  { modelName: 'Behavioral ML', confidence: 0.22 },
-  { modelName: 'Packet Pattern', confidence: 0.19 }
+  { modelName: 'Autoencoder', confidence: 0.18 },
+  { modelName: 'LightGBM', confidence: 0.25 },
+  { modelName: 'GNN (Graph Neural Network)', confidence: 0.31 }
 ];
 
 const mockLogs: Log[] = [
-  { id: '1', message: 'Suspicious packet timing pattern detected in subnet 192.168.1.0/24', level: 'warning', timestamp: new Date(Date.now() - 60000).toISOString() },
-  { id: '2', message: 'CRITICAL: Potential DDoS attack detected from 203.45.67.89 (1.2M packets/sec)', level: 'alert', timestamp: new Date(Date.now() - 120000).toISOString() },
-  { id: '3', message: 'Anomalous encryption entropy detected in flow to 10.0.0.5', level: 'warning', timestamp: new Date(Date.now() - 300000).toISOString() },
-  { id: '4', message: 'CRITICAL: Malware-like behavioral pattern detected on port 443', level: 'alert', timestamp: new Date(Date.now() - 600000).toISOString() },
-  { id: '5', message: 'Port scan activity detected: 50+ ports probed in 2 seconds', level: 'warning', timestamp: new Date(Date.now() - 900000).toISOString() }
+  { id: '1', message: 'Suspicious packet timing pattern detected in subnet 192.168.1.0/24 - Autoencoder flagged anomaly', level: 'warning', timestamp: new Date(Date.now() - 60000).toISOString() },
+  { id: '2', message: 'CRITICAL: Potential DDoS attack detected from 203.45.67.89 (1.2M packets/sec) - LightGBM classification', level: 'alert', timestamp: new Date(Date.now() - 120000).toISOString() },
+  { id: '3', message: 'Anomalous encryption entropy detected in flow to 10.0.0.5 - GNN network analysis warning', level: 'warning', timestamp: new Date(Date.now() - 300000).toISOString() },
+  { id: '4', message: 'CRITICAL: Malware-like behavioral pattern detected on port 443 - LightGBM high-risk detection', level: 'alert', timestamp: new Date(Date.now() - 600000).toISOString() },
+  { id: '5', message: 'Port scan activity detected: 50+ ports probed in 2 seconds - GNN graph anomaly detected', level: 'warning', timestamp: new Date(Date.now() - 900000).toISOString() }
 ];
 
 const mockAutoSafeCommands = [
