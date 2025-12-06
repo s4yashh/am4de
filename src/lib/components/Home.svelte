@@ -2,7 +2,7 @@
   import logo from '../../assets/logo.png';
   import video from '../../assets/riskdetected.mp4';
   import SignupForm from './Auth/SignupForm.svelte';
-  import OtpForm from './Auth/OtpForm.svelte';
+  import OTPForm from './Auth/OTPForm.svelte';
   import LoginForm from './Auth/LoginForm.svelte';
   
   export let onGetStarted: () => void;
@@ -52,7 +52,7 @@
   {:else if authStep === 'login'}
     <LoginForm onLoginComplete={handleLoginComplete} onBackToHome={handleBackToHome} />
   {:else if authStep === 'otp'}
-    <OtpForm email={signupEmail} hashedPassword={signupHashedPassword} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
+    <OTPForm email={signupEmail} hashedPassword={signupHashedPassword} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
   {:else}
     <!-- Home Page Content -->
     <div class="home-content">
