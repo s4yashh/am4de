@@ -29,30 +29,50 @@
       console.log('🔐 Password hashed:', hashedPassword.substring(0, 8) + '...');
       console.log('📧 Email:', email);
       
-      const response = await fetch('/api/signin', {
+      const requestBody = { 
+        email,
+        password: hashedPassword
+      };
+      console.log('📤 Sending login request:', requestBody);
+      
+      // Try /api/signin first, then fall back to /api/login
+      let response = await fetch('/api/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          email,
-          password: hashedPassword
-        }),
+        body: JSON.stringify(requestBody),
       });
+
+      // If 404, try /api/login instead
+      if (response.status === 404) {
+        console.log('⚠️ /api/signin returned 404, trying /api/login...');
+        response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+      }
 
       const data = await response.json();
       console.log('✅ LOGIN RESPONSE:', data);
       console.log('📊 Response status:', response.status);
+      console.log('📋 Response OK:', response.ok);
+      console.log('🔑 Response keys:', Object.keys(data));
 
-      if (response.ok && data.authenticated) {
+      // Check multiple possible response formats
+      if (response.ok && (data.success === true || data.authenticated === true || data.status === 'ok' || data.verified === true)) {
         success = true;
-        localStorage.setItem('authToken', data.token || '');
+        localStorage.setItem('authToken', data.token || data.access_token || '');
         localStorage.setItem('userEmail', email);
         setTimeout(() => {
           onLoginComplete();
         }, 1500);
       } else {
-        error = data.error || data.message || 'Login failed. Please try again.';
+        error = data.error || data.message || data.detail || 'Login failed. Please try again.';
+        console.error('❌ Login failed with response:', data);
       }
     } catch (err) {
       const errMessage = err instanceof Error ? err.message : String(err);
