@@ -34,7 +34,7 @@
       console.log('🔐 Password hashed:', hashedPassword.substring(0, 8) + '...');
       console.log('📧 Email:', email);
       
-      const response = await fetch('/api/signup', {
+      const response = await fetch('https://amide-backend.vercel.app/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

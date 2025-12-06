@@ -35,8 +35,8 @@
       };
       console.log('📤 Sending login request:', requestBody);
       
-      // Try /api/signin first, then fall back to /api/login
-      let response = await fetch('/api/signin', {
+      // Try signin first, then fall back to login
+      let response = await fetch('https://amide-backend.vercel.app/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,10 +44,10 @@
         body: JSON.stringify(requestBody),
       });
 
-      // If 404, try /api/login instead
+      // If 404, try login instead
       if (response.status === 404) {
-        console.log('⚠️ /api/signin returned 404, trying /api/login...');
-        response = await fetch('/api/login', {
+        console.log('⚠️ /signin returned 404, trying /login...');
+        response = await fetch('https://amide-backend.vercel.app/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
