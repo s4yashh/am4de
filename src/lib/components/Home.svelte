@@ -22,14 +22,13 @@
     <div class="max-w-4xl w-full text-center">
 
       <!-- Main Heading -->
-      <h1 class="text-6xl sm:text-7xl font-bold mb-6 leading-tight">
-        <span style="color: #F4F4ED;">Risk clarity.</span>
-        <br />
-        <span style="color: #D2FF02;">Without the noise.</span>
+      <h1 class="mb-6">
+        <div style="font-family: 'Inter Tight', sans-serif; font-size: 71px; font-weight: 100; line-height: 80px; color: #FFFFFF;">Risk clarity.</div>
+        <div style="font-family: 'Playfair Display', serif; font-size: 71px; font-weight: 20; line-height: 80px; color: #FFFFFF;">Without the noise.</div>
       </h1>
 
       <!-- Subheading -->
-      <p class="text-lg sm:text-xl mb-12 leading-relaxed" style="color: #B8B8B0;">
+      <p class="text-lg sm:text-xl mb-12 leading-relaxed" style="color: #FFFFFF;">
         Take control of cyber risk with the only platform that spans your
         <br />
         supply chain, attack surface, workforce, and trust relationships.
@@ -46,7 +45,7 @@
         </button>
         <button
           class="px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-semibold rounded-full transition-all duration-300 border-2"
-          style="border-color: #3a3a3a; color: #F4F4ED;"
+          style="border-color: #3a3a3a; color: #FFFFFF;"
         >
           Free trial
         </button>
@@ -54,11 +53,11 @@
 
       <!-- Features Row (Optional) -->
       <div class="mt-20 pt-12 border-t" style="border-color: #2a2a2a;">
-        <p class="text-xs sm:text-sm uppercase tracking-widest mb-8" style="color: #808078;">Trusted by leading enterprises</p>
+        <p class="text-xs sm:text-sm uppercase tracking-widest mb-8" style="color: #FFFFFF;">Trusted by leading enterprises</p>
         <div class="flex flex-wrap justify-center gap-8 items-center">
-          <div style="color: #808078;" class="text-sm font-medium">Enterprise Security</div>
-          <div style="color: #808078;" class="text-sm font-medium">Real-time Monitoring</div>
-          <div style="color: #808078;" class="text-sm font-medium">AI-Powered Analytics</div>
+          <div style="color: #FFFFFF;" class="text-sm font-medium">Enterprise Security</div>
+          <div style="color: #FFFFFF;" class="text-sm font-medium">Real-time Monitoring</div>
+          <div style="color: #FFFFFF;" class="text-sm font-medium">AI-Powered Analytics</div>
         </div>
       </div>
     </div>
