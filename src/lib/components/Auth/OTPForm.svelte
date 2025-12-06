@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { sha256 } from '../../crypto';
 
   export let email: string;
+  export let hashedPassword: string;
   export let onOtpVerified: () => void;
   export let onBackToSignup: () => void;
 
@@ -42,15 +44,25 @@
     error = '';
 
     try {
-      const response = await fetch('https://amide-backend.vercel.app/verify_otp', {
+      console.log('🔐 Verifying OTP:', otp);
+      console.log('📧 Email:', email);
+      console.log('🔑 Password hash:', hashedPassword.substring(0, 8) + '...');
+      
+      const response = await fetch('/api/verify_otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify({
+          email,
+          otp,
+          password: hashedPassword
+        }),
       });
 
       const data = await response.json();
+      console.log('✅ VERIFY OTP RESPONSE:', data);
+      console.log('📊 Response status:', response.status);
 
       if (response.ok && data.verified) {
         success = true;
@@ -59,10 +71,11 @@
           onOtpVerified();
         }, 1500);
       } else {
-        error = data.message || 'Invalid OTP. Please try again.';
+        error = data.message || data.error || 'Invalid OTP. Please try again.';
       }
     } catch (err) {
-      error = 'Connection error. Please check your internet and try again.';
+      const errMessage = err instanceof Error ? err.message : String(err);
+      error = `Connection error: ${errMessage}. Check internet or try again.`;
       console.error('OTP verification error:', err);
     } finally {
       loading = false;
@@ -74,17 +87,20 @@
     error = '';
 
     try {
-      const response = await fetch('https://amide-backend.vercel.app/signup', {
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          password: hashedPassword
+        }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && (data.status === 'ok' || data.status === 'exists')) {
         timeLeft = 900;
         error = '';
         if (timerInterval) clearInterval(timerInterval);
@@ -96,10 +112,11 @@
           }
         }, 1000);
       } else {
-        error = data.error || 'Failed to resend OTP.';
+        error = data.error || data.message || 'Failed to resend OTP.';
       }
     } catch (err) {
-      error = 'Connection error. Please try again.';
+      const errMessage = err instanceof Error ? err.message : String(err);
+      error = `Connection error: ${errMessage}. Please try again.`;
       console.error('Resend OTP error:', err);
     } finally {
       loading = false;

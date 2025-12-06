@@ -1,5 +1,7 @@
 <script lang="ts">
-  export let onSignupComplete: (email: string) => void;
+  import { sha256 } from '../../crypto';
+  
+  export let onSignupComplete: (email: string, password: string) => void;
 
   let email = '';
   let password = '';
@@ -28,26 +30,36 @@
     error = '';
 
     try {
-      const response = await fetch('https://amide-backend.vercel.app/signup', {
+      const hashedPassword = await sha256(password);
+      console.log('🔐 Password hashed:', hashedPassword.substring(0, 8) + '...');
+      console.log('📧 Email:', email);
+      
+      const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email,
+          password: hashedPassword
+        }),
       });
 
       const data = await response.json();
+      console.log('✅ SIGNUP RESPONSE:', data);
+      console.log('📊 Response status:', response.status);
 
       if (response.ok && (data.status === 'ok' || data.status === 'exists')) {
         success = true;
         setTimeout(() => {
-          onSignupComplete(email);
+          onSignupComplete(email, hashedPassword);
         }, 1500);
       } else {
-        error = data.error || 'Failed to send OTP. Please try again.';
+        error = data.error || data.message || 'Failed to send OTP. Please try again.';
       }
     } catch (err) {
-      error = 'Connection error. Please check your internet and try again.';
+      const errMessage = err instanceof Error ? err.message : String(err);
+      error = `Connection error: ${errMessage}. Check internet or try again.`;
       console.error('Signup error:', err);
     } finally {
       loading = false;

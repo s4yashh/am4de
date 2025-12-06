@@ -10,4 +10,13 @@ export default defineConfig({
       $lib: path.resolve('./src/lib'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://amide-backend.vercel.app',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

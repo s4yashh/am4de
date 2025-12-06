@@ -8,13 +8,15 @@
 
   let authStep: 'home' | 'signup' | 'otp' = 'home';
   let signupEmail = '';
+  let signupHashedPassword = '';
 
   const handleGetStartedClick = () => {
     authStep = 'signup';
   };
 
-  const handleSignupComplete = (email: string) => {
+  const handleSignupComplete = (email: string, hashedPassword: string) => {
     signupEmail = email;
+    signupHashedPassword = hashedPassword;
     authStep = 'otp';
   };
 
@@ -33,7 +35,7 @@
   {#if authStep === 'signup'}
     <SignupForm onSignupComplete={handleSignupComplete} />
   {:else if authStep === 'otp'}
-    <OtpForm email={signupEmail} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
+    <OtpForm email={signupEmail} hashedPassword={signupHashedPassword} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
   {:else}
     <!-- Home Page Content -->
     <div class="home-content">
