@@ -1,17 +1,42 @@
 <script lang="ts">
   import logo from '../../assets/logo.png';
   import video from '../../assets/riskdetected.mp4';
+  import SignupForm from './Auth/SignupForm.svelte';
+  import OtpForm from './Auth/OtpForm.svelte';
   
   export let onGetStarted: () => void;
 
+  let authStep: 'home' | 'signup' | 'otp' = 'home';
+  let signupEmail = '';
+
   const handleGetStartedClick = () => {
+    authStep = 'signup';
+  };
+
+  const handleSignupComplete = (email: string) => {
+    signupEmail = email;
+    authStep = 'otp';
+  };
+
+  const handleOtpVerified = () => {
     localStorage.setItem('hasVisitedDashboard', 'true');
     onGetStarted();
+  };
+
+  const handleBackToSignup = () => {
+    authStep = 'signup';
+    signupEmail = '';
   };
 </script>
 
 <div class="site-wrapper w-screen min-h-screen flex flex-col" style="background-color: #0a0a0a;">
-  <!-- Header -->
+  {#if authStep === 'signup'}
+    <SignupForm onSignupComplete={handleSignupComplete} />
+  {:else if authStep === 'otp'}
+    <OtpForm email={signupEmail} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
+  {:else}
+    <!-- Home Page Content -->
+    <div class="home-content">
   <header class="w-full px-6 py-4 border-b" style="border-color: #1a1a1a;">
     <div class="flex items-center">
       <img src={logo} alt="AMIDE Logo" class="w-20 h-20" style="filter: brightness(0) invert(1);" />
@@ -78,6 +103,8 @@
       </div>
     </div>
   </div>
+    </div>
+  {/if}
 </div>
 
 <style>

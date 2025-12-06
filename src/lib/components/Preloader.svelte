@@ -9,7 +9,7 @@
   onMount(() => {
     let n = 0;
 
-    // Ultra-smooth progress interval at 120fps
+    // Much smoother progress interval (FPS-friendly)
     const interval = setInterval(() => {
       n += 1;
       progress = n;
@@ -23,7 +23,7 @@
         // Remove preloader AFTER expansion completes
         setTimeout(() => (hide = true), 1200);
       }
-    }, 8.33); // 8.33ms = 120fps
+    }, 16); // 16ms = 60fps
   });
 </script>
 
