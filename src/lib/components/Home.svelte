@@ -1,5 +1,6 @@
 <script lang="ts">
   import logo from '../../assets/logo.png';
+  import video from '../../assets/riskdetected.mp4';
   
   export let onGetStarted: () => void;
 
@@ -24,14 +25,14 @@
       <!-- Main Heading -->
       <h1 class="mb-6">
         <div style="font-family: 'Inter Tight', sans-serif; font-size: 71px; font-weight: 100; line-height: 80px; color: #FFFFFF;">Risk clarity.</div>
-        <div style="font-family: 'Playfair Display', serif; font-size: 71px; font-weight: 20; line-height: 80px; color: #FFFFFF;">Without the noise.</div>
+        <div style="font-family: 'Source Serif 4', serif; font-size: 71px; font-weight: 300; line-height: 80px; color: #FFFFFF;">Without the noise.</div>
       </h1>
 
       <!-- Subheading -->
-      <p class="text-lg sm:text-xl mb-12 leading-relaxed" style="color: #FFFFFF;">
-        Take control of cyber risk with the only platform that spans your
+      <p class="text-lg sm:text-xl mb-12 leading-relaxed" style="color: #BABABA;">
+       Take control of encrypted-traffic threats with a platform that unifies 
         <br />
-        supply chain, attack surface, workforce, and trust relationships.
+       packet metadata, behavioral patterns, ML detection, and real-time visibility.
       </p>
 
       <!-- CTA Buttons -->
@@ -49,6 +50,19 @@
         >
           Free trial
         </button>
+      </div>
+
+      <!-- Video Section -->
+      <div class="mt-16" style="width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);">
+        <video
+          muted
+          playsinline
+          autoplay
+          loop
+          style="width: 100%; height: auto; display: block;"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
       </div>
 
       <!-- Features Row (Optional) -->
