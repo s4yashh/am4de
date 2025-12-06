@@ -3,10 +3,11 @@
   import video from '../../assets/riskdetected.mp4';
   import SignupForm from './Auth/SignupForm.svelte';
   import OtpForm from './Auth/OtpForm.svelte';
+  import LoginForm from './Auth/LoginForm.svelte';
   
   export let onGetStarted: () => void;
 
-  let authStep: 'home' | 'signup' | 'otp' = 'home';
+  let authStep: 'home' | 'signup' | 'login' | 'otp' = 'home';
   let signupEmail = '';
   let signupHashedPassword = '';
 
@@ -14,10 +15,19 @@
     authStep = 'signup';
   };
 
+  const handleLoginClick = () => {
+    authStep = 'login';
+  };
+
   const handleSignupComplete = (email: string, hashedPassword: string) => {
     signupEmail = email;
     signupHashedPassword = hashedPassword;
     authStep = 'otp';
+  };
+
+  const handleLoginComplete = () => {
+    localStorage.setItem('hasVisitedDashboard', 'true');
+    onGetStarted();
   };
 
   const handleOtpVerified = () => {
@@ -29,11 +39,18 @@
     authStep = 'signup';
     signupEmail = '';
   };
+
+  const handleBackToHome = () => {
+    authStep = 'home';
+    signupEmail = '';
+  };
 </script>
 
 <div class="site-wrapper w-screen min-h-screen flex flex-col" style="background-color: #0a0a0a;">
   {#if authStep === 'signup'}
     <SignupForm onSignupComplete={handleSignupComplete} />
+  {:else if authStep === 'login'}
+    <LoginForm onLoginComplete={handleLoginComplete} onBackToHome={handleBackToHome} />
   {:else if authStep === 'otp'}
     <OtpForm email={signupEmail} hashedPassword={signupHashedPassword} onOtpVerified={handleOtpVerified} onBackToSignup={handleBackToSignup} />
   {:else}
@@ -72,10 +89,11 @@
           Get started
         </button>
         <button
+          on:click={handleLoginClick}
           class="px-8 py-3 sm:px-10 sm:py-4 text-base sm:text-lg font-light rounded-full transition-all duration-300 border-2"
           style="border-color: #3a3a3a; color: #FFFFFF;"
         >
-          Free trial
+          Sign in
         </button>
       </div>
     </div>

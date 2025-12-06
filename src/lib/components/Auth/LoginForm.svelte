@@ -1,110 +1,178 @@
 <script lang="ts">
-  export let onLogin: (email: string, password: string) => Promise<void> = async () => {};
-  export let onRegister: () => void = () => {};
+  import { sha256 } from '../../crypto';
+  
+  export let onLoginComplete: () => void;
+  export let onBackToHome: () => void;
 
   let email = '';
   let password = '';
-  let isLoading = false;
+  let loading = false;
   let error = '';
+  let success = false;
 
   const handleLogin = async () => {
     if (!email || !password) {
-      error = 'Please fill in all fields';
+      error = 'Email and password are required';
       return;
     }
 
-    isLoading = true;
+    if (password.length < 6) {
+      error = 'Password must be at least 6 characters';
+      return;
+    }
+
+    loading = true;
     error = '';
 
     try {
-      await onLogin(email, password);
+      const hashedPassword = await sha256(password);
+      console.log('🔐 Password hashed:', hashedPassword.substring(0, 8) + '...');
+      console.log('📧 Email:', email);
+      
+      const response = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email,
+          password: hashedPassword
+        }),
+      });
+
+      const data = await response.json();
+      console.log('✅ LOGIN RESPONSE:', data);
+      console.log('📊 Response status:', response.status);
+
+      if (response.ok && data.authenticated) {
+        success = true;
+        localStorage.setItem('authToken', data.token || '');
+        localStorage.setItem('userEmail', email);
+        setTimeout(() => {
+          onLoginComplete();
+        }, 1500);
+      } else {
+        error = data.error || data.message || 'Login failed. Please try again.';
+      }
     } catch (err) {
-      error = err instanceof Error ? err.message : 'Login failed';
+      const errMessage = err instanceof Error ? err.message : String(err);
+      error = `Connection error: ${errMessage}. Check internet or try again.`;
+      console.error('Login error:', err);
     } finally {
-      isLoading = false;
+      loading = false;
+    }
+  };
+
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center px-4">
-  <div class="w-full max-w-md">
-    <div class="rounded-lg shadow-lg p-8" style="background-color: #DDE1D3;">
-      <!-- Logo/Header -->
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-lg mb-4">
-          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-        </div>
-        <h1 class="text-3xl font-bold text-gray-900">SecureNet</h1>
-        <p class="text-gray-600 mt-2">AI-Powered Threat Detection</p>
+<div class="login-container w-screen min-h-screen flex flex-col items-center justify-center" style="background-color: #0a0a0a;">
+  <div class="form-wrapper w-full max-w-md px-6 sm:px-8">
+    <button 
+      on:click={onBackToHome}
+      class="mb-8 text-sm flex items-center gap-2 transition-all duration-200 hover:opacity-80"
+      style="color: #BABABA;"
+    >
+      ← Back to home
+    </button>
+
+    <h1 class="form-title text-4xl sm:text-5xl font-light mb-2" style="color: #FFFFFF;">Sign in</h1>
+    <p class="form-subtitle text-base sm:text-lg mb-10" style="color: #BABABA;">
+      Welcome back to AMIDE
+    </p>
+
+    {#if success}
+      <div class="success-message mb-6 p-4 rounded-lg" style="background-color: #1a3a2a; border: 1px solid #2a5a4a;">
+        <p style="color: #4ade80;">✓ Login successful! Redirecting...</p>
+      </div>
+    {/if}
+
+    {#if error}
+      <div class="error-message mb-6 p-4 rounded-lg" style="background-color: #3a1a1a; border: 1px solid #5a2a2a;">
+        <p style="color: #ff6b6b;">{error}</p>
+      </div>
+    {/if}
+
+    <form on:submit|preventDefault={handleLogin} class="space-y-6">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Email address</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="you@company.com"
+          bind:value={email}
+          on:keypress={handleKeyPress}
+          disabled={loading}
+          class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
+        />
       </div>
 
-      <!-- Login Form -->
-      <form on:submit|preventDefault={handleLogin} class="space-y-4">
-        {#if error}
-          <div class="bg-red-50 border border-red-200 rounded-lg p-3">
-            <p class="text-red-800 text-sm">{error}</p>
-          </div>
-        {/if}
-
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-          <input
-            type="email"
-            id="email"
-            bind:value={email}
-            placeholder="you@example.com"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-          />
-        </div>
-
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-          <input
-            type="password"
-            id="password"
-            bind:value={password}
-            placeholder="••••••••"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? 'Signing in...' : 'Sign In'}
-        </button>
-      </form>
-
-      <!-- Divider -->
-      <div class="relative my-6">
-        <div class="absolute inset-0 flex items-center">
-          <div class="w-full border-t border-gray-300"></div>
-        </div>
-        <div class="relative flex justify-center text-sm">
-          <span class="px-2 text-gray-700" style="background-color: #DDE1D3;">Don't have an account?</span>
-        </div>
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Password</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="••••••••"
+          bind:value={password}
+          on:keypress={handleKeyPress}
+          disabled={loading}
+          class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
+          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
+        />
       </div>
 
-      <!-- Register Link -->
+      <!-- Login Button -->
       <button
-        type="button"
-        on:click={onRegister}
-        class="w-full border-2 border-blue-600 text-blue-600 py-2 rounded-lg font-semibold hover:bg-blue-50 transition"
+        type="submit"
+        disabled={loading}
+        class="w-full py-3 rounded-lg font-medium transition-all duration-300 transform hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        style="background-color: #F4F4ED; color: #0a0a0a;"
       >
-        Create Account
+        {loading ? 'Signing in...' : 'Sign in'}
       </button>
+    </form>
 
-      <!-- Footer -->
-      <p class="text-center text-xs text-gray-500 mt-6">
-        This system analyzes encrypted network traffic for threats
-      </p>
-    </div>
+    <!-- Signup Link -->
+    <p class="text-center mt-6" style="color: #BABABA;">
+      Don't have an account? 
+      <a href="#signup" class="font-medium transition-colors duration-200 hover:text-white" style="color: #4a9eff;">Create one</a>
+    </p>
   </div>
 </div>
 
 <style>
+  .login-container {
+    overflow-y: auto;
+  }
+
+  .form-wrapper {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  input::placeholder {
+    color: #5a5a5a;
+  }
 </style>
