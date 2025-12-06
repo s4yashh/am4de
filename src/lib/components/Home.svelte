@@ -15,7 +15,7 @@
   <header class="w-full px-6 py-4 border-b" style="border-color: #1a1a1a;">
     <div class="flex items-center">
       <img src={logo} alt="AMIDE Logo" class="w-20 h-20" style="filter: brightness(0) invert(1);" />
-      <span class="text-3xl font-bold" style="color: #FFFFFF; margin-left: -8px;">Amide</span>
+      <span class="text-3xl font-semibold" style="color: #FFFFFF; margin-left: -8px;">Amide</span>
     </div>
   </header>
   
