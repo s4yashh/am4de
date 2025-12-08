@@ -70,7 +70,7 @@
         if (timerInterval) clearInterval(timerInterval);
         setTimeout(() => {
           onOtpVerified();
-        }, 1500);
+        }, 500);
       } else {
         error = data.message || data.error || 'Invalid OTP. Please try again.';
       }

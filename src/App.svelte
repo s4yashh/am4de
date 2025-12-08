@@ -24,6 +24,7 @@
   let permissionStatus: string = 'Waiting for Permission';
   let autoSafeCommands: AutoSafeCommand[] = [];
   let selectedModel: string | null = null;
+  let currentTime: string = new Date().toLocaleTimeString();
   
   let isLoading = true;
   let error: string | null = null;
@@ -83,6 +84,13 @@
     } else {
       currentPage = 'home';
     }
+
+    // Update time every second
+    const timeInterval = setInterval(() => {
+      currentTime = new Date().toLocaleTimeString();
+    }, 1000);
+
+    return () => clearInterval(timeInterval);
   });
 </script>
 
@@ -138,9 +146,9 @@
               </button>
             </div>
           <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #FAFAF8; border-color: #000000;">
-            <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #000000;"></div>
+            <div class="w-2 h-2 rounded-full " style="background-color: #FF0000;"></div>
             <span class="text-sm font-semibold" style="color: #000000;">Live</span>
-            <span class="text-xs ml-2" style="color: #555555;">{new Date().toLocaleTimeString()}</span>
+            <span class="text-xs ml-2" style="color: #555555;">{currentTime}</span>
           </div>
         </div>
         <div class="h-1 w-16 rounded-full" style="background-color: #000000;"></div>

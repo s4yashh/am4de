@@ -70,7 +70,7 @@
         localStorage.setItem('userEmail', email);
         setTimeout(() => {
           onLoginComplete();
-        }, 1500);
+        }, 500);
       } else {
         error = data.error || data.message || data.detail || 'Login failed. Please try again.';
         console.error('❌ Login failed with response:', data);

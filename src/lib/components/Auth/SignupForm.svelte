@@ -55,7 +55,7 @@
         success = true;
         setTimeout(() => {
           onSignupComplete(email, hashedPassword);
-        }, 1500);
+        }, 500);
       } else {
         error = data.error || data.message || 'Failed to send OTP. Please try again.';
       }
