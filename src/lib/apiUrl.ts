@@ -4,14 +4,14 @@
  * For production/Vercel: use full URL to backend
  */
 export function getApiUrl(endpoint: string): string {
-  const isLocalhost = typeof window !== 'undefined' && 
-    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  
-  if (isLocalhost) {
-    // Use Vite proxy for localhost
+  // Check if running on localhost (development)
+  if (typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || 
+       window.location.hostname === '127.0.0.1')) {
+    // Use local proxy for development
     return `/api${endpoint}`;
-  } else {
-    // Use direct URL for production
-    return `https://amide-backend.vercel.app${endpoint}`;
   }
+  
+  // Use full URL for production
+  return `https://amide-backend.vercel.app${endpoint}`;
 }
