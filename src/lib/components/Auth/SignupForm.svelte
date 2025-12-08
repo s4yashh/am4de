@@ -85,7 +85,7 @@
       ← Back to sign in
     </button>
 
-    <h1 class="form-title text-4xl sm:text-5xl font-light mb-2" style="color: #FFFFFF;">Create Account</h1>
+    <h1 class="form-title text-4xl sm:text-5xl font-light mb-2" style="color: #FAFAF8;">Create Account</h1>
     <p class="form-subtitle text-base sm:text-lg mb-10" style="color: #BABABA;">
       Join AMIDE to monitor encrypted threats
     </p>
@@ -104,7 +104,7 @@
 
     <form on:submit|preventDefault={handleSignup} class="space-y-6">
       <div class="form-group">
-        <label for="email" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Email address</label>
+        <label for="email" class="block text-sm font-medium mb-2" style="color: #FAFAF8;">Email address</label>
         <input
           id="email"
           type="email"
@@ -113,12 +113,12 @@
           on:keypress={handleKeyPress}
           disabled={loading || success}
           class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
-          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
+          style="background-color: #1a1a1a; color: #FAFAF8; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
       </div>
 
       <div class="form-group">
-        <label for="password" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Password</label>
+        <label for="password" class="block text-sm font-medium mb-2" style="color: #FAFAF8;">Password</label>
         <input
           id="password"
           type="password"
@@ -127,13 +127,13 @@
           on:keypress={handleKeyPress}
           disabled={loading || success}
           class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
-          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
+          style="background-color: #1a1a1a; color: #FAFAF8; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
-        <p class="text-xs mt-1" style="color: #BABABA;">At least 6 characters</p>
+        <p class="text-xs mt-1" style="color: #888888;">At least 6 characters</p>
       </div>
 
       <div class="form-group">
-        <label for="confirmPassword" class="block text-sm font-medium mb-2" style="color: #FFFFFF;">Confirm Password</label>
+        <label for="confirmPassword" class="block text-sm font-medium mb-2" style="color: #FAFAF8;">Confirm Password</label>
         <input
           id="confirmPassword"
           type="password"
@@ -142,7 +142,7 @@
           on:keypress={handleKeyPress}
           disabled={loading || success}
           class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 transition-all duration-200"
-          style="background-color: #1a1a1a; color: #FFFFFF; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
+          style="background-color: #1a1a1a; color: #FAFAF8; border: 1px solid #3a3a3a; --tw-ring-color: #4a9eff;"
         />
       </div>
 
@@ -156,11 +156,11 @@
       </button>
     </form>
 
-    <p class="text-center mt-6" style="color: #BABABA;">
+    <p class="text-center mt-6" style="color: #FAFAF8;">
       Already have an account? 
       <button
         on:click={onBackToLogin}
-        class="font-medium transition-colors duration-200 hover:text-white"
+        class="font-medium transition-colors duration-200 hover:text-blue-400"
         style="color: #4a9eff; background: none; border: none; cursor: pointer; padding: 0;"
       >
         Sign in
@@ -181,7 +181,7 @@
   }
 
   .form-wrapper {
-    background: white;
+    background: #0a0a0a;
     padding: 48px 40px;
     border-radius: 12px;
     width: 100%;
@@ -192,7 +192,7 @@
   .form-title {
     font-size: 28px;
     font-weight: 600;
-    color: #0a0a0a;
+    color: #FAFAF8;
     margin: 0 0 8px 0;
     font-family: 'Inter', sans-serif;
   }
@@ -239,7 +239,7 @@
   label {
     font-size: 14px;
     font-weight: 500;
-    color: #0a0a0a;
+    color: #FAFAF8;
     font-family: 'Inter', sans-serif;
   }
 
