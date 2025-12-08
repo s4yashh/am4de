@@ -1,6 +1,6 @@
 <script lang="ts">
   import { sha256 } from '../../crypto';
-  import { getApiUrl } from '../../apiUrl';
+  import { fetchAPI } from '../../fetchAPI';
   
   export let onLoginComplete: () => void;
   export let onBackToHome: () => void;
@@ -37,7 +37,7 @@
       console.log('📤 Sending login request:', requestBody);
       
       // Try signin first, then fall back to login
-      let response = await fetch(getApiUrl('/signin'), {
+      let response = await fetchAPI('https://amide-backend.vercel.app/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@
       // If 404, try login instead
       if (response.status === 404) {
         console.log('⚠️ /signin returned 404, trying /login...');
-        response = await fetch(getApiUrl('/login'), {
+        response = await fetchAPI('https://amide-backend.vercel.app/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

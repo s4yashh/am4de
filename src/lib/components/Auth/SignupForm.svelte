@@ -1,6 +1,6 @@
 <script lang="ts">
   import { sha256 } from '../../crypto';
-  import { getApiUrl } from '../../apiUrl';
+  import { fetchAPI } from '../../fetchAPI';
   
   export let onSignupComplete: (email: string, password: string) => void;
   export let onBackToLogin: () => void;
@@ -36,7 +36,7 @@
       console.log('🔐 Password hashed:', hashedPassword.substring(0, 8) + '...');
       console.log('📧 Email:', email);
       
-      const response = await fetch(getApiUrl('/signup'), {
+      const response = await fetchAPI('https://amide-backend.vercel.app/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

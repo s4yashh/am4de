@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { sha256 } from '../../crypto';
-  import { getApiUrl } from '../../apiUrl';
+  import { fetchAPI } from '../../fetchAPI';
 
   export let email: string;
   export let hashedPassword: string;
@@ -49,7 +49,7 @@
       console.log('📧 Email:', email);
       console.log('🔑 Password hash:', hashedPassword.substring(0, 8) + '...');
       
-      const response = await fetch(getApiUrl('/verify_otp'), {
+      const response = await fetchAPI('https://amide-backend.vercel.app/verify_otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@
     error = '';
 
     try {
-      const response = await fetch(getApiUrl('/signup'), {
+      const response = await fetchAPI('https://amide-backend.vercel.app/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
