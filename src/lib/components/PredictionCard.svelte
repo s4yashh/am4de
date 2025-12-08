@@ -54,23 +54,19 @@
     </div>
   </div>
 
-  <!-- Always Visible Logs Section -->
-  <div class="border-t overflow-hidden transition-all duration-500 ease-out" style="max-height: {isSelected ? '400px' : '200px'}; border-color: #333333;">
-    <div style="background-color: #1a1a1a;" class="p-4">
-      <div class="space-y-2 max-h-[300px] overflow-y-auto">
-        {#if getRelevantLogs().length === 0}
-          <p class="text-xs" style="color: #BABABA;">No detections</p>
-        {:else}
-          {#each getRelevantLogs() as log (log.id)}
-            <div class="text-xs p-2 rounded" style="background-color: #2a2a2a; border-color: #333333; border: 1px solid #333333;">
-              <p style="color: #FFFFFF;" class="line-clamp-2">{log.message}</p>
-              <p style="color: #BABABA;" class="text-xs mt-1">{new Date(log.timestamp).toLocaleTimeString()}</p>
-            </div>
-          {/each}
-        {/if}
+  <!-- Always Visible Logs Section - Only if there are detections -->
+  {#if getRelevantLogs().length > 0}
+    <div class="overflow-hidden transition-all duration-500 ease-out pt-4 px-6 pb-6" style="max-height: {isSelected ? 'auto' : `${Math.min(getRelevantLogs().length * 50 + 20, 200)}px`}; background-color: #FAFAF8;">
+      <div class="space-y-2">
+        {#each getRelevantLogs() as log (log.id)}
+          <div class="text-xs">
+            <p style="color: #000000;" class="line-clamp-2">{log.message}</p>
+            <p style="color: #BABABA;" class="text-xs mt-1">{new Date(log.timestamp).toLocaleTimeString()}</p>
+          </div>
+        {/each}
       </div>
     </div>
-  </div>
+  {/if}
 </div>
 
 <style>

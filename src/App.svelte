@@ -94,7 +94,7 @@
   <div class="site-wrapper w-screen min-h-screen" style="background-color: #FAFAF8;">
     <TopBar {permissionStatus} {autoSafeCommands} />
 
-    <main class="w-full px-4 sm:px-6 lg:px-8 py-12" style="background-color: #FAFAF8;">
+    <main class="w-full px-4 sm:px-6 lg:px-8 py-4" style="background-color: #FAFAF8;">
       <!-- Loading State -->
       {#if isLoading && parameters.length === 0}
         <div class="flex items-center justify-center h-96">
@@ -123,7 +123,7 @@
 
       {#if !isLoading || parameters.length > 0}
         <!-- Header -->
-        <div class="mb-12">
+        <div class="mb-6">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-4">
               <button
@@ -136,10 +136,6 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <div>
-                <h2 class="text-4xl font-bold" style="color: #000000;">Security Dashboard</h2>
-                <p class="text-sm mt-2" style="color: #555555;">Real-time threat detection and network analysis</p>
-              </div>
             </div>
           <div class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg border shadow-sm" style="background-color: #FAFAF8; border-color: #000000;">
             <div class="w-2 h-2 rounded-full animate-pulse" style="background-color: #000000;"></div>
@@ -153,10 +149,8 @@
       <!-- Parameters Section -->
       <section class="mb-16" style="background-color: #FAFAF8;">
         <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
+          <h3 class="text-2xl font-bold flex items-center gap-3 dashboard-heading" style="color: #000000;">
+            <img src="/network.png" alt="Network Metrics" class="w-10 h-10" />
             Network Metrics
           </h3>
           <p class="text-sm mt-2" style="color: #555555;">Current security and network parameters</p>
@@ -171,15 +165,13 @@
       <!-- Predictions Section with Expandable Logs -->
       <section class="mb-16" style="background-color: #FAFAF8;">
         <div class="mb-6">
-          <h3 class="text-2xl font-bold flex items-center gap-3" style="color: #000000;">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #000000;">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+          <h3 class="text-2xl font-bold flex items-center gap-3 dashboard-heading" style="color: #000000;">
+            <img src="/ai.png" alt="AI" class="w-12 h-12" />
             AI Detection Models
           </h3>
           <p class="text-sm mt-2" style="color: #555555;">Machine learning threat detection confidence levels</p>
         </div>
-        <div class="grid gap-6" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="grid gap-6" style="grid-template-columns: repeat(3, 1fr); align-items: start;">
           {#each predictions as pred (pred.modelName)}
             <PredictionCard prediction={pred} isSelected={selectedModel === pred.modelName} onSelect={handleModelClick} logs={logs} />
           {/each}
