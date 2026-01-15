@@ -81,48 +81,7 @@ src/
             └── OTPForm.svelte           # 6-digit OTP verification
 ```
 
-## 🚀 Getting Started
 
-### Installation
-
-```bash
-npm install
-```
-
-### Development
-
-```bash
-npm run dev
-```
-
-Visit: http://localhost:5173 (or 5174 if 5173 is in use)
-
-### Build
-
-```bash
-npm run build
-```
-
-## 📊 API Mock Data
-
-Located in `src/lib/api.ts`. Replace with real API endpoints:
-
-```typescript
-// Network Metrics
-getParameters() → [{ name, value }, ...]
-
-// ML Model Scores
-getPredictions() → [{ modelName, confidence }, ...]
-
-// Security Events
-getLogs() → [{ message, level: 'warning'|'alert', timestamp }, ...]
-
-// Permission Status
-getPermissionStatus() → string
-
-// Active Commands
-getAutoSafeCommands() → [{ command, status, timestamp }, ...]
-```
 
 ## 🎨 Design System
 
